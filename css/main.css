@@ -1,0 +1,10 @@
+body {
+  font-family: "Noto Sans JP", sans-serif; /* サイト全体に適用 */
+}
+
+@media (min-width: 992px) {
+  .container-custom-padding {
+    padding-left: 180px;
+    padding-right: 180px;
+  }
+}
