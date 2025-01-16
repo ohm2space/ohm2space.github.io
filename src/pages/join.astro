@@ -1,0 +1,45 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../assets/css/mine.css';
+import Rule from "../components/Rule.md";
+---
+<Layout title="入会手続き">
+    <section id="about" class="section mt-3">
+        <div class="container mt-5">
+            <div class="row text-center text-md-left align-items-center">
+                <div class="pl-md-4 col-md-8">
+                    <h1>How To Join</h1>
+                    <p class="subtitle">入会手続き</p>
+                    <div class="text-left">
+                        <strong>以下の団体規約に同意の上、入会手続きを行ってください。<br/><br/></strong>
+                        <p>本団体は、法律上の法人格を有しない任意団体であり、団体内での活動はすべて構成員の自主的な意思と参加に基づいて行われます。したがって、本団体におけるいかなる関係も、労働基準法その他の関連法令に基づく雇用契約または労働関係には該当いたしません。</p>
+                        <p>構成員または活動に参加する者は、自己の責任において本団体の趣旨および活動内容に同意したうえで参加するものとし、金銭や報酬の支払い等を伴う雇用関係の成立を前提としておりません。</p>
+                        <p>また、本団体は、いかなる形態の雇用契約、委任契約、請負契約等を締結するものではなく、これに起因する権利義務は一切発生しないものとします。</p>
+                        <p>なお、雇用契約を希望される場合は、Chart株式会社までお問い合わせください。</p>
+                    </div>
+                </div>
+                <div class="pl-md-4 col-md-4">
+                    <img src="/imgs/rocket.jpg" width="90%" alt="" class="mb-4">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section m-3">
+        <div class="container">
+            <div class="row text-center text-md-left consent">
+                <div class="mt-5 pl-md-4 col-md-12">
+                    <div class="text-left">
+                        <div class="join">
+                            <Rule />
+                        </div>
+                    </div>   
+                </div>                
+            </div>
+        </div>
+        <div class="container mt-5 text-center">
+            <a href="https://buy.stripe.com/bIY4ht2T8dxT05WfYZ" class="btn btn-primary btn-lg rounded-pill shadow-lg" style="width: 50%;">入会する</a>
+        </div>
+    </section>
+
+</Layout>

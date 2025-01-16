@@ -1,0 +1,19 @@
+---
+import Layout from './Layout.astro';
+// import "github-markdown-css/github-markdown-light.css";
+import '../assets/css/markdown.css';
+const {frontmatter} = Astro.props;
+---
+<Layout title={frontmatter.title}>
+    
+    <section id="about" class="section mt-3 markdown-body">
+        <div class="container mt-5">
+            <span class="my-4" style="font-size: 20pt;">{frontmatter.title}</span>
+            <p>公開日：{frontmatter.date}</p>
+        </div>
+        <div class="container mt-5">
+            <slot />
+        </div>
+    </section>
+
+</Layout>

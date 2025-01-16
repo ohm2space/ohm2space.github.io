@@ -1,0 +1,27 @@
+---
+import '../assets/vendors/themify-icons/css/themify-icons.css';
+import '../assets/css/steller.css';
+import '../assets/vendors/themify-icons/css/themify-icons.css';
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+const { title } = Astro.props;
+const siteTitle = "宇宙開発研究所OHM";
+const description = "宇宙開発研究所OHMは、開発研究を主に工学的・理学的アプローチのもと、技術革新と未来への挑戦を目指しています。";
+---
+
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content={description}>
+    <meta name="author" content={siteTitle}>
+    <title>{title ? `${title} | ${siteTitle}` : siteTitle}</title>
+</head>
+	<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
+		<Header />
+		<slot />
+		<Footer />
+	</body>
+</html>

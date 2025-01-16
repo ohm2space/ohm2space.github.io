@@ -1,0 +1,288 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+interface Post {
+  frontmatter: {
+    title: string;
+    date: string;
+  };
+  url: string;
+}
+
+const posts = Object.entries(
+  import.meta.glob<Post>('../content/releases/*.md', { eager: true })
+)
+  .map(([path, post]) => ({
+    ...post,
+    url: path.replace('.md', '/').replace('../content',''),
+  }))
+  .sort(
+    (a, b) =>
+      new Date(b.frontmatter.date).getTime() -
+      new Date(a.frontmatter.date).getTime()
+  )
+  .slice(0, 5);
+
+
+---
+
+<Layout>
+	<!-- Page Header -->
+	<header class="header" id="home"
+		style="background-image: url(/imgs/background.jpg); width: 100%; height: 100vh; background-repeat: no-repeat; background-size: cover;">
+		<div class="container">
+			<div class="infos">
+				<h6 class="subtitle">Space Development Institute</h6>
+				<h6 class="title">OHM</h6>
+				<p>宇宙開発研究所OHM</p>
+
+				<div class="socials mt-4">
+					<a class="social-item" href="javascript:void(0)"><i class="ti-facebook"></i></a>
+					<a class="social-item" href="javascript:void(0)"><i class="ti-google"></i></a>
+					<a class="social-item" href="javascript:void(0)"><i class="ti-github"></i></a>
+					<a class="social-item" href="javascript:void(0)"><i class="ti-twitter"></i></a>
+				</div>
+			</div>
+		</div>
+	</header>
+	<!-- End of Page Header -->
+	
+	<!-- About section -->
+	<section id="about" class="section mt-3">
+		<div class="container mt-5">
+			<div class="row text-center text-md-left">
+				<div class="col-md-3">
+					<img src="/imgs/ohm-logo3.svg" alt="" class="img-thumbnail mb-4" />
+				</div>
+				<div class="pl-md-4 col-md-9">
+					<h6 class="title">About Us</h6>
+					<p class="subtitle">「宇宙開発研究所OHM」について</p>
+					<p class="text-left">
+						OHMは開発研究を主に工学的・理学的アプローチのもと、技術革新と未来への挑戦を目指しています。日本各地の宇宙開発に情熱を注ぐエキスパートが個別に活動してきましたが、OHMはその力を結集し、地域や組織の垣根を超えて協力体制を築きます。多様なバックグラウンドを持つメンバーが知識を共有し、協働を通じて宇宙探査に取り組みます。OHMは宇宙を次のステージとし、人類の未来を切り開くことを目標に挑戦を続けます。
+					</p>
+					<a href="/about/">
+					<button class="btn btn-primary rounded mt-3">さらに詳しく</button>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Blog Section -->
+	<section id="blog" class="section">
+		<div class="container text-center">
+			<h6 class="subtitle">ニュー・リリース</h6>
+			<h6 class="section-title mb-4">New Release</h6>
+
+			<div class="border p-3 bg-light text-left">
+				<ul class="list-unstyled mb-0">
+					{posts.map((post) => {
+						const date = new Date(post.frontmatter.date);
+						const formattedDate = `${date.getFullYear()}年${String(date.getMonth() + 1).padStart(2, '0')}月${String(date.getDate()).padStart(2, '0')}日`;
+						return (
+						<li>
+							<a href={post.url} class="text-dark d-block">
+								[{formattedDate}] {post.frontmatter.title}
+							</a>
+						</li>
+						);
+					})}
+				</ul>
+			</div>
+
+		</div>
+	</section>
+
+	<!-- Service section -->
+	<section id="service" class="section">
+		<div class="container text-center">
+			<h6 class="subtitle">事業・サービス</h6>
+			<h6 class="section-title mb-4">Business and Service</h6>
+			<p class="mb-5 pb-4"></p>
+
+			<div class="row">
+				<div class="col-sm-3 col-md-3 mb-4">
+					<div class="custom-card card border">
+						<div class="card-body">
+							<img src="/imgs/hire.png" width="70%" alt="" class="mb-3" />
+							<h5>
+								側ヒレ型ロボット
+							</h5>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3 col-md-3 mb-4">
+					<div class="custom-card card border">
+						<div class="card-body">
+							<img src="/imgs/spaceballon.jpg" width="70%" alt="" class="mb-3" />
+							<h5>スペースバルーン</h5>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3 col-md-3 mb-4">
+					<div class="custom-card card border">
+						<div class="card-body">
+							<img src="/imgs/rocket.png" width="70%" alt="" class="mb-3" />
+							<h5>
+								ロケット
+							</h5>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3 col-md-3 mb-4">
+					<div class="custom-card card border">
+						<div class="card-body">
+							<img src="/imgs/simulation.png" width="70%" alt="" class="mb-3" />
+							<h5>飛翔シミュレーター</h5>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End of Sectoin -->
+
+	<!-- メンバー紹介セクション -->
+	<section class="py-5" id="members">
+		<div class="container text-center">
+			<h6 class="subtitle">役員</h6>
+			<h6 class="section-title mb-4">Members</h6>
+			<div class="row">
+				<div class="col-md-3 text-center">
+					<img src="/imgs/dn.jpg" class="rounded-circle mb-3" alt="メンバー1" width="150" height="150" />
+					<h5>Daisuke Nishihama</h5>
+					<p>代表</p>
+					<div class="justify-content-center align-items-center mb-2">
+						<p>
+							Chart株式会社、大阪大学大学院理学研究科、宇宙工学サークルあかとき第3代代表、ANCO-project2023
+							通信班開発責任者、えひめ南予共同気球実験運営
+						</p>
+						<a href="/members/dn/">Read More..</a>
+					</div>
+				</div>
+
+				<div class="col-md-3 text-center">
+					<img src="/imgs/ru.jpg" class="rounded-circle mb-3" alt="メンバー2" width="150" height="150" />
+					<h5>Ryosuke Ui</h5>
+					<p>副代表</p>
+					<div class="justify-content-center align-items-center mb-2">
+						<p>
+							Chart株式会社、名古屋大学大学院工学研究科、宇宙開発チームNAFT第10代代表、電気システムエンジニア、第19回・20回種子島宇宙ロケットコンテスト優勝
+						</p>
+						<a href="/members/ui/">Read More..</a>
+					</div>
+				</div>
+
+				<div class="col-md-3 text-center">
+					<img src="/imgs/so.jpg" class="rounded-circle mb-3" alt="メンバー3" width="150" height="150" />
+					<h5>Stefan Oshima</h5>
+					<p>最高技術責任者</p>
+					<div class="justify-content-center align-items-center mb-2">
+						<p>
+							名古屋大学大学院工学研究科、宇宙開発チームNAFT第10代副代表、塗装職人、機械設計エンジニア、第19回・20回種子島宇宙ロケットコンテスト優勝
+						</p>
+						<a href="/members/so/">Read More..</a>
+					</div>
+				</div>
+
+				<div class="col-md-3 text-center">
+					<img src="/imgs/ts.jpg" class="rounded-circle mb-3" alt="メンバー1" width="150" height="150" />
+					<h5>Takahiro Sako</h5>
+					<p>最高財務責任者</p>
+					<div class="justify-content-center align-items-center mb-2">
+						<p>
+							埼玉大学工学部機械工学・システムデザイン学科、謎解き制作団体kmocy創立代表者、観光クロスオーバー秩父ミッション採択、TOKYO創業ステーションTAMAビジネスコンテスト優勝
+						</p>
+						<a href="/members/ts/">Read More..</a>
+					</div>
+				</div>
+			</div>
+
+			<!-- Testmonial Section -->
+			<section id="partner" class="section">
+				<div class="container text-center">
+					<h6 class="subtitle">資本業務提携</h6>
+					<h6 class="section-title mb-4">Capital and business alliance</h6>
+
+					<div class="d-flex justify-content-center align-items-center">
+						<img src="/imgs/chart-logo.png" alt="" width="70px" class="m-3" style="border-radius:50%;" />
+						<h5>Chart株式会社</h5>
+					</div>
+				</div>
+			</section>
+			<!-- End of testmonial section -->
+
+			<!-- Hire me section -->
+			<section class="bg-gray p-0 section">
+				<div class="container">
+					<div class="card bg-primary">
+						<div class="card-body text-light">
+							<div class="row align-items-center">
+								<div class="col-sm-9 text-center text-sm-left">
+									<h5 class="mt-3">
+										一緒に「ものづくり」をする人を募集しています
+									</h5>
+									<p class="mb-3">
+										We are looking for people to “make things” with us!
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- End od Hire me section. -->
+
+			<!-- Contact Section -->
+			<section id="contact" class="position-relative section">
+				<div class="container text-center">
+					<h6 class="subtitle">お問い合わせ</h6>
+					<h6 class="section-title mb-4">Contact</h6>
+
+					<div class="contact text-left">
+						<div class="form">
+							<form>
+								<div class="form-group">
+									<input type="email" class="form-control" id="exampleInputEmail1"
+										aria-describedby="emailHelp" placeholder="メールアドレス" required />
+								</div>
+								<div class="form-group">
+									<input type="password" class="form-control" id="exampleInputPassword1"
+										placeholder="お名前" required />
+								</div>
+								<div class="form-group">
+									<textarea name="contact-message" id="" cols="30" rows="5" class="form-control"
+										placeholder="お問い合わせ内容"></textarea>
+								</div>
+								<button type="submit" class="btn btn-primary btn-block rounded w-lg">送信</button>
+							</form>
+						</div>
+						<div class="contact-infos">
+							<div class="item">
+								<i class="ti-location-pin"></i>
+								<div class="">
+									<h5>Location</h5>
+									<p>埼玉県川越市</p>
+								</div>
+							</div>
+							<div class="item">
+								<i class="ti-email"></i>
+								<div class="mb-0">
+									<h5>Email Address</h5>
+									<p>ohm2space@gmail.com</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="map">
+					<iframe
+						src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d103421.51763350151!2d139.38529412600198!3d35.899915538484805!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sja!2sjp!4v1735101979326!5m2!1sja!2sjp"
+						width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+						referrerpolicy="no-referrer-when-downgrade"></iframe>
+				</div>
+			</section>
+		</div>
+		<!-- End of Contact Section -->
+	</section>
+</Layout>

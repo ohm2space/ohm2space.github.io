@@ -1,0 +1,25 @@
+---
+import Layout from './Layout.astro';
+const {frontmatter} = Astro.props;
+---
+<Layout title={frontmatter.name}>
+    
+    <section id="about" class="section mt-3">
+        <div class="container mt-5">
+            <div class="row text-center text-md-left">
+                <div class="col-md-4">
+                    <img src={frontmatter.img} width="80%" alt="" class="mb-4">
+                </div>
+                <div class="pl-md-4 col-md-8">
+                    <h6 class="title">{frontmatter.name}</h6>
+                    <p class="subtitle">{frontmatter.en_name}</p>
+
+                    <div class="text-left">
+                        <slot />
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </section>
+
+</Layout>

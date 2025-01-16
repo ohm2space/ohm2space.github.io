@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+const blogEntries = await getCollection('releases');
+---
+
+
+<Layout title="お知らせ">
+  <section id="about" class="section mt-3">
+      <div class="container mt-5">
+          <div class="row text-center text-md-left">
+              <ul>
+                  {
+                      blogEntries.map((blogPostEntry) => {
+                          // 日付フォーマット処理
+                          const date = new Date(blogPostEntry.data.date);
+                          const formattedDate = `${date.getFullYear()}年${String(date.getMonth() + 1).padStart(2, '0')}月${String(date.getDate()).padStart(2, '0')}日`;
+                          
+                          return (
+                              <li>
+                                  <a href={`/releases/${blogPostEntry.slug}`}>
+                                      [{formattedDate}] {blogPostEntry.data.title}
+                                  </a>
+                              </li>
+                          );
+                      })
+                  }
+              </ul>
+          </div>
+      </div>
+  </section>
+</Layout>

@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import "github-markdown-css/github-markdown-light.css";
+import '../../assets/css/markdown.css';
+
+export async function getStaticPaths() {
+  const blogEntries = await getCollection('releases');
+  return blogEntries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const date = entry.data.date;
+const formattedDate = `${date.getFullYear()}年${String(date.getMonth() + 1).padStart(2, '0')}月${String(date.getDate()).padStart(2, '0')}日`;
+const { Content } = await entry.render();
+
+---
+<Layout title={entry.data.title}>
+    
+    <section id="about" class="section mt-5 markdown-body">
+        <div class="container mt-5">
+            <span class="my-4" style="font-size: 20pt;">{entry.data.title}</span>
+            <p>公開日：{formattedDate}</p>
+        </div>
+        <div class="container mt-5">
+          <Content />
+        </div>
+    </section>
+
+</Layout>
